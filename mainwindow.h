@@ -6,6 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include "dh_widget.h"
+#include "scene.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,8 +22,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Scene* scene;
     QList<DH_Widget*> dh_widgets;
-    void calculate() const;
+    void calculate();
 
     void save_settings() const;
     void load_settings();

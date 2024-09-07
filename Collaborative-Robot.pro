@@ -12,12 +12,14 @@ SOURCES += \
     dh_matrix.cpp \
     dh_widget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    scene.cpp
 
 HEADERS += \
     dh_matrix.h \
     dh_widget.h \
-    mainwindow.h
+    mainwindow.h \
+    scene.h
 
 FORMS += \
     mainwindow.ui

@@ -5,8 +5,13 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , scene(new Scene())
 {
     ui->setupUi(this);
+    ui->view->setScene(scene);
+    scene->setSceneRect(0,0,ui->view->width()-margin, ui->view->height());
+    scene->init();
+
     connect(ui->load, &QAction::triggered, this, &MainWindow::load_settings);
     connect(ui->save, &QAction::triggered, this, &MainWindow::save_settings);
 
@@ -22,13 +27,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::calculate() const {
+void MainWindow::calculate() {
+    QList<Point> points;
     qDebug() << "Calculating: ";
     DH_Matrix result = dh_widgets.first()->matrix();
+    points.append(result.coordinates());
     for (int i = 1; i < 6; ++i) {
-        result = result * dh_widgets[i]->matrix();
+        result *= dh_widgets[i]->matrix();
+        points.append(result.coordinates());
         qDebug() << QString("Step %1").arg(i) << result;
     }
+    qDebug() << points;
+    scene->draw_lines(points);
 }
 
 void MainWindow::save_settings() const {
