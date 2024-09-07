@@ -19,6 +19,7 @@ public:
     void init();
     void clear();
     void draw_lines(const QList<Point>&, int rotation_angle = 0);
+    void set_yoz(bool enable) { x_label->setPlainText(enable ? "y" : "x"); }
 
 private:
     double scale;

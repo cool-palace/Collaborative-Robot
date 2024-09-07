@@ -20,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
         ui->verticalLayout->addWidget(dh_widgets.back());
     }
     connect(ui->calculate, &QPushButton::clicked, this, &MainWindow::calculate);
+    connect(ui->plane, QOverload<int>::of(&QComboBox::currentIndexChanged), [this](int index) {
+        scene->set_yoz(static_cast<bool>(index));
+        calculate();
+    });
 }
 
 MainWindow::~MainWindow() {
@@ -38,7 +42,8 @@ void MainWindow::calculate() {
         points.append(result.coordinates());
 //        qDebug() << QString("Step %1").arg(i) << result;
     }
-    scene->draw_lines(points);
+    int angle = ui->plane->currentIndex() == 0 ? 0 : -90;
+    scene->draw_lines(points, angle);
     auto p = points.back();
     ui->statusbar->showMessage(QString("Координаты положения последнего сочленения: "
                                        "x: %1, y: %2, z: %3").arg(p.x()).arg(p.y()).arg(p.z()));
