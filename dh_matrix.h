@@ -12,6 +12,7 @@ public:
     double x() const { return x_; }
     double y() const { return y_; }
     double z() const { return z_; }
+    friend QDebug& operator<<(QDebug debug, const Point& p);
 };
 
 class DH_Matrix
@@ -22,6 +23,7 @@ private:
 public:
     DH_Matrix(int theta = 0, double a = 0, double d = 0, int alpha = 0);
     DH_Matrix operator*(const DH_Matrix& other) const;
+    DH_Matrix& operator*=(const DH_Matrix& other);
     Point coordinates() const { return Point(matrix[0][3], matrix[1][3], matrix[2][3]); }
     friend QDebug& operator<<(QDebug debug, const DH_Matrix& m);
 };

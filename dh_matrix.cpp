@@ -1,5 +1,12 @@
 #include "dh_matrix.h"
 
+QDebug& operator<<(QDebug debug, const Point& p) {
+    debug << "Point (" << QString::number(p.x_, 'f', 6).toUtf8().constData() << ", "
+                       << QString::number(p.y_, 'f', 6).toUtf8().constData() << ", "
+                       << QString::number(p.z_, 'f', 6).toUtf8().constData() << ")\n";
+    return debug.noquote();
+}
+
 DH_Matrix::DH_Matrix(int theta_, double a, double d, int alpha_) {
     double theta = qDegreesToRadians(static_cast<double>(theta_));
     double alpha = qDegreesToRadians(static_cast<double>(alpha_));
@@ -36,6 +43,16 @@ DH_Matrix DH_Matrix::operator*(const DH_Matrix &other) const {
         }
     }
     return result;
+}
+
+DH_Matrix &DH_Matrix::operator*=(const DH_Matrix &other) {
+    auto result = (*this) * other;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            matrix[i][j] = result.matrix[i][j];
+        }
+    }
+    return *this;
 }
 
 QDebug& operator<<(QDebug debug, const DH_Matrix& m) {
