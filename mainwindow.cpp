@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     for (int i = 0; i < 6; ++i) {
         dh_widgets.push_back(new DH_Widget(QString("Узел %1").arg(i+1)));
+        connect(dh_widgets.back(), &DH_Widget::value_changed, this, &MainWindow::calculate);
         ui->verticalLayout->addWidget(dh_widgets.back());
     }
     connect(ui->calculate, &QPushButton::clicked, this, &MainWindow::calculate);
@@ -29,16 +30,19 @@ MainWindow::~MainWindow()
 
 void MainWindow::calculate() {
     QList<Point> points;
-    qDebug() << "Calculating: ";
+    points.append(Point());
+//    qDebug() << "Calculating: ";
     DH_Matrix result = dh_widgets.first()->matrix();
     points.append(result.coordinates());
     for (int i = 1; i < 6; ++i) {
         result *= dh_widgets[i]->matrix();
         points.append(result.coordinates());
-        qDebug() << QString("Step %1").arg(i) << result;
+//        qDebug() << QString("Step %1").arg(i) << result;
     }
-    qDebug() << points;
     scene->draw_lines(points);
+    auto p = points.back();
+    ui->statusbar->showMessage(QString("Координаты положения последнего сочленения: "
+                                       "x: %1, y: %2, z: %3").arg(p.x()).arg(p.y()).arg(p.z()));
 }
 
 void MainWindow::save_settings() const {
@@ -82,10 +86,12 @@ void MainWindow::load_settings() {
     for (int i = 0; i < joints.size(); ++i) {
         auto joint = joints[i].toObject();
         DH_Widget* current = dh_widgets[i];
+        disconnect(current, nullptr, nullptr, nullptr);
         current->set_theta(joint["theta"].toInt(current->get_theta()));
         current->set_alpha(joint["alpha"].toInt(current->get_alpha()));
         current->set_a(joint["a"].toDouble(current->get_a()));
         current->set_d(joint["d"].toDouble(current->get_d()));
+        connect(current, &DH_Widget::value_changed, this, &MainWindow::calculate);
     }
     ui->statusbar->showMessage("Настройки загружены");
 }

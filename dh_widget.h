@@ -15,8 +15,10 @@ class DH_Widget : public QGroupBox
 public:
     explicit DH_Widget(const QString&, QWidget *parent = nullptr);
 
-public slots:
+signals:
     void value_changed();
+
+public slots:
     DH_Matrix matrix() const { return DH_Matrix(theta->value(), a->value(), d->value(), alpha->value()); }
     QJsonObject to_json() const;
     void set_theta(int value) { theta->setValue(value); }
