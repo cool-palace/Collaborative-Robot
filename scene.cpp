@@ -1,6 +1,7 @@
 #include "scene.h"
 
 Scene::Scene(QObject* parent) : QGraphicsScene(parent)
+    , line_pen(QBrush(Qt::green),3)
     , x_axis(new QGraphicsLineItem())
     , z_axis(new QGraphicsLineItem())
     , x_label(new QGraphicsTextItem("x"))
@@ -48,6 +49,7 @@ void Scene::draw_lines(const QList<Point> & points, int rotation_angle) {
         QLineF line = QLineF((points[i].x()*qCos(theta) - points[i].y()*qSin(theta)) * scale + width()/2, height() - points[i].z() * scale,
                              (points[i+1].x()*qCos(theta) - points[i+1].y()*qSin(theta)) * scale + width()/2, height() - points[i+1].z() * scale);
         lines.push_back(new QGraphicsLineItem(line));
+        lines.back()->setPen(line_pen);
         addItem(lines.back());
     }
 }

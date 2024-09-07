@@ -21,6 +21,7 @@ public:
 
 private:
     double scale;
+    QPen line_pen;
     QGraphicsLineItem * x_axis;
     QGraphicsLineItem * z_axis;
     QGraphicsTextItem * x_label;
