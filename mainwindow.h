@@ -19,5 +19,6 @@ public:
 private:
     Ui::MainWindow *ui;
     QList<DH_Widget*> dh_widgets;
+    void calculate() const;
 };
 #endif // MAINWINDOW_H
