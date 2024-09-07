@@ -29,7 +29,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     d = new QDoubleSpinBox(this);
     d->setMinimum(-1);
     d->setMaximum(1);
-    d->setSingleStep(0.005);
+    d->setSingleStep(0.05);
     d->setDecimals(3);
     d->setSuffix(" м");
     layout->addWidget(d);
