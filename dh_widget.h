@@ -14,6 +14,7 @@ class DH_Widget : public QGroupBox
     Q_OBJECT
 public:
     explicit DH_Widget(const QString&, QWidget *parent = nullptr);
+    virtual ~DH_Widget();
 
 signals:
     void value_changed();

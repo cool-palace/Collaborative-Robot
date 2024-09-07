@@ -15,6 +15,7 @@ class Scene : public QGraphicsScene
     Q_OBJECT
 public:
     Scene(QObject* parent = nullptr);
+    virtual ~Scene();
     void init();
     void clear();
     void draw_lines(const QList<Point>&, int rotation_angle = 0);

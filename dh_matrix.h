@@ -1,5 +1,6 @@
 #ifndef DH_MATRIX_H
 #define DH_MATRIX_H
+
 #include <QtMath>
 #include <QDebug>
 #include <cstring>

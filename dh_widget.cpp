@@ -3,6 +3,7 @@
 DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);
 
+    // Theta parameter
     QLabel* label_theta = new QLabel("θ: ", this);
     label_theta->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     layout->addWidget(label_theta);
@@ -13,6 +14,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     theta->setSuffix("°");
     layout->addWidget(theta);
 
+    // A parameter
     QLabel* label_a = new QLabel("a: ", this);
     label_a->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     layout->addWidget(label_a);
@@ -23,6 +25,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     a->setSuffix(" м");
     layout->addWidget(a);
 
+    // D parameter
     QLabel* label_d = new QLabel("d: ", this);
     label_d->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     layout->addWidget(label_d);
@@ -34,6 +37,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     d->setSuffix(" м");
     layout->addWidget(d);
 
+    // Alpha parameter
     QLabel* label_alpha = new QLabel("α: ", this);
     label_alpha->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     layout->addWidget(label_alpha);
@@ -50,7 +54,13 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     connect(a, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &DH_Widget::value_changed);
     connect(d, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &DH_Widget::value_changed);
     connect(alpha, QOverload<int>::of(&QSpinBox::valueChanged), this, &DH_Widget::value_changed);
+}
 
+DH_Widget::~DH_Widget() {
+    delete theta;
+    delete alpha;
+    delete a;
+    delete d;
 }
 
 QJsonObject DH_Widget::to_json() const {

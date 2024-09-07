@@ -6,9 +6,15 @@ Scene::Scene(QObject* parent) : QGraphicsScene(parent)
     , z_axis(new QGraphicsLineItem())
     , x_label(new QGraphicsTextItem("x"))
     , z_label(new QGraphicsTextItem("z"))
-    , origin_label(new QGraphicsTextItem("0"))
-{
+    , origin_label(new QGraphicsTextItem("0")) { }
 
+Scene::~Scene() {
+    clear();
+    delete x_axis;
+    delete z_axis;
+    delete x_label;
+    delete z_label;
+    delete origin_label;
 }
 
 void Scene::init() {
@@ -17,7 +23,7 @@ void Scene::init() {
     double z_axis_length = height();
     scale = z_axis_length / 2;
 
-    // updating axes projection
+    // Drawing reference plane in XOZ plane
     z_axis->setLine(z_axis_pos, 0, z_axis_pos, z_axis_length + margin);
     x_axis->setLine(0, z_axis_length, x_axis_length, z_axis_length);
     x_label->setPos(x_axis->line().p2() + x_axis_label_offset);
