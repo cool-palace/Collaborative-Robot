@@ -47,11 +47,7 @@ DH_Matrix DH_Matrix::operator*(const DH_Matrix &other) const {
 
 DH_Matrix &DH_Matrix::operator*=(const DH_Matrix &other) {
     auto result = (*this) * other;
-    for (int i = 0; i < 4; ++i) {
-        for (int j = 0; j < 4; ++j) {
-            matrix[i][j] = result.matrix[i][j];
-        }
-    }
+    std::memcpy(matrix, result.matrix, 4 * 4 * sizeof(double));
     return *this;
 }
 
