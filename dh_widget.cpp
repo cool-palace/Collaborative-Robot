@@ -9,6 +9,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     theta = new QSpinBox(this);
     theta->setMinimum(-180);
     theta->setMaximum(180);
+    theta->setSingleStep(5);
     theta->setSuffix("°");
     layout->addWidget(theta);
 
@@ -28,7 +29,8 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     d = new QDoubleSpinBox(this);
     d->setMinimum(-1);
     d->setMaximum(1);
-    d->setSingleStep(0.05);
+    d->setSingleStep(0.005);
+    d->setDecimals(3);
     d->setSuffix(" м");
     layout->addWidget(d);
 
@@ -38,6 +40,7 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     alpha = new QSpinBox(this);
     alpha->setMinimum(-180);
     alpha->setMaximum(180);
+    alpha->setSingleStep(90);
     alpha->setSuffix("°");
     layout->addWidget(alpha);
 
