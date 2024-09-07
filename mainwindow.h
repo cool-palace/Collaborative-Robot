@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include "dh_widget.h"
 
 QT_BEGIN_NAMESPACE
@@ -20,5 +23,8 @@ private:
     Ui::MainWindow *ui;
     QList<DH_Widget*> dh_widgets;
     void calculate() const;
+
+    void save_settings() const;
+    void load_settings();
 };
 #endif // MAINWINDOW_H
