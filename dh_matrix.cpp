@@ -43,7 +43,7 @@ QDebug& operator<<(QDebug debug, const DH_Matrix& m) {
     for (int i = 0; i < 4; ++i) {
         debug.nospace() << "\n[ ";
         for (int j = 0; j < 4; ++j) {
-            debug.nospace() << QString::number(m.matrix[i][j], 'f', 5).rightJustified(8).toUtf8().constData() << " ";
+            debug.nospace() << QString::number(m.matrix[i][j], 'f', 5).rightJustified(9).toUtf8().constData() << " ";
         }
         debug.nospace() << "]";
     }

@@ -50,8 +50,9 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
     connect(a, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &DH_Widget::value_changed);
     connect(d, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &DH_Widget::value_changed);
     connect(alpha, QOverload<int>::of(&QSpinBox::valueChanged), this, &DH_Widget::value_changed);
+
 }
 
 void DH_Widget::value_changed() {
-    qDebug() << DH_Matrix(theta->value(), a->value(), d->value(), alpha->value());
+    qDebug() << matrix();
 }
