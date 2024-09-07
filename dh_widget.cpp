@@ -56,3 +56,12 @@ DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, p
 void DH_Widget::value_changed() {
     qDebug() << matrix();
 }
+
+QJsonObject DH_Widget::to_json() const {
+    QJsonObject result;
+    result["theta"] = theta->value();
+    result["a"] = a->value();
+    result["d"] = d->value();
+    result["alpha"] = alpha->value();
+    return result;
+}
