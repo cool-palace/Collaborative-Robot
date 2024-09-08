@@ -6,7 +6,13 @@ Scene::Scene(QObject* parent) : QGraphicsScene(parent)
     , z_axis(new QGraphicsLineItem())
     , x_label(new QGraphicsTextItem("x"))
     , z_label(new QGraphicsTextItem("z"))
-    , origin_label(new QGraphicsTextItem("0")) { }
+    , origin_label(new QGraphicsTextItem("0"))
+    , x_1_mark(new QGraphicsLineItem())
+    , x_minus_1_mark(new QGraphicsLineItem())
+    , z_1_mark(new QGraphicsLineItem())
+    , x_1_label(new QGraphicsTextItem("1"))
+    , x_minus_1_label(new QGraphicsTextItem("-1"))
+    , z_1_label(new QGraphicsTextItem("1")) { }
 
 Scene::~Scene() {
     clear();
@@ -30,6 +36,13 @@ void Scene::init() {
     z_label->setPos(z_axis->line().p1() + z_axis_label_offset);
     origin_label->setPos(z_axis->line().p2() + QPointF(5,-10));
 
+    x_1_mark->setLine(z_axis_pos + scale, z_axis_length - margin/2, z_axis_pos + scale, z_axis_length + margin/2);
+    x_minus_1_mark->setLine(z_axis_pos - scale, z_axis_length - margin/2, z_axis_pos - scale, z_axis_length + margin/2);
+    z_1_mark->setLine(z_axis_pos - margin/2, z_axis_length - scale, z_axis_pos + margin/2, z_axis_length - scale);
+    x_1_label->setPos(x_1_mark->line().p2() + x_axis_label_offset);
+    x_minus_1_label->setPos(x_minus_1_mark->line().p2() + x_axis_label_offset);
+    z_1_label->setPos(z_1_mark->line().p2() + QPointF(5,-10));
+
     QPen axis_pen(QBrush(Qt::black),2,Qt::DashDotLine);
     x_axis->setPen(axis_pen);
     z_axis->setPen(axis_pen);
@@ -39,6 +52,12 @@ void Scene::init() {
     addItem(x_label);
     addItem(z_label);
     addItem(origin_label);
+    addItem(x_1_mark);
+    addItem(x_minus_1_mark);
+    addItem(z_1_mark);
+    addItem(x_1_label);
+    addItem(x_minus_1_label);
+    addItem(z_1_label);
 }
 
 void Scene::clear() {

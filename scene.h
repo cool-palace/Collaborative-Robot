@@ -28,6 +28,12 @@ private:
     QGraphicsLineItem * z_axis;
     QGraphicsTextItem * x_label;
     QGraphicsTextItem * z_label;
+    QGraphicsLineItem * x_1_mark;
+    QGraphicsLineItem * x_minus_1_mark;
+    QGraphicsLineItem * z_1_mark;
+    QGraphicsTextItem * x_1_label;
+    QGraphicsTextItem * x_minus_1_label;
+    QGraphicsTextItem * z_1_label;
     QGraphicsTextItem * origin_label;
     QList<QGraphicsLineItem*> lines;
 };
