@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->save, &QAction::triggered, this, &MainWindow::save_settings);
 
     for (int i = 0; i < 6; ++i) {
-        dh_widgets.push_back(new DH_Widget(QString("Узел %1").arg(i+1)));
+        dh_widgets.push_back(new DH_Widget(QString("Узел %1").arg(i+1), this));
         connect(dh_widgets.back(), &DH_Widget::value_changed, this, &MainWindow::calculate);
         ui->verticalLayout->addWidget(dh_widgets.back());
     }
@@ -34,13 +34,13 @@ MainWindow::~MainWindow() {
 void MainWindow::calculate() {
     QList<Point> points;
     points.append(Point());
-//    qDebug() << "Calculating: ";
+    qDebug() << "Calculating: ";
     DH_Matrix result = dh_widgets.first()->matrix();
     points.append(result.coordinates());
     for (int i = 1; i < 6; ++i) {
         result *= dh_widgets[i]->matrix();
         points.append(result.coordinates());
-//        qDebug() << QString("Step %1").arg(i) << result;
+        qDebug() << QString("Step %1").arg(i) << result;
     }
     int angle = ui->plane->currentIndex() == 0 ? 0 : -90;
     scene->draw_lines(points, angle);
@@ -97,5 +97,5 @@ void MainWindow::load_settings() {
         current->set_d(joint["d"].toDouble(current->get_d()));
         connect(current, &DH_Widget::value_changed, this, &MainWindow::calculate);
     }
-    ui->statusbar->showMessage("Настройки загружены");
+    ui->statusbar->showMessage("Настройки загружены, данные готовы к расчёту.");
 }
