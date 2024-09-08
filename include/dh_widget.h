@@ -7,7 +7,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QJsonObject>
-#include <include\dh_matrix.h>
+#include <include/dh_matrix.h>
 
 class DH_Widget : public QGroupBox
 {
@@ -36,7 +36,6 @@ private:
     QSpinBox* alpha;
     QDoubleSpinBox* a;
     QDoubleSpinBox* d;
-
 };
 
 #endif // DH_WIDGET_H

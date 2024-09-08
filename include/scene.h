@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QGraphicsScene>
 #include <QGraphicsLineItem>
-#include "include\dh_matrix.h"
+#include "include/dh_matrix.h"
 
 const double margin = 10;
 const QPointF z_axis_label_offset = QPointF(-15,-10);

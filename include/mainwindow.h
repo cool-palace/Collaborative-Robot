@@ -5,8 +5,8 @@
 #include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonArray>
-#include "include\dh_widget.h"
-#include "include\scene.h"
+#include "include/dh_widget.h"
+#include "include/scene.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

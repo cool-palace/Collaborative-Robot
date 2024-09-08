@@ -9,17 +9,17 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src\dh_matrix.cpp \
-    src\dh_widget.cpp \
+    src/dh_matrix.cpp \
+    src/dh_widget.cpp \
     main.cpp \
-    src\mainwindow.cpp \
-    src\scene.cpp
+    src/mainwindow.cpp \
+    src/scene.cpp
 
 HEADERS += \
-    include\dh_matrix.h \
-    include\dh_widget.h \
-    include\mainwindow.h \
-    include\scene.h
+    include/dh_matrix.h \
+    include/dh_widget.h \
+    include/mainwindow.h \
+    include/scene.h
 
 FORMS += \
     mainwindow.ui
