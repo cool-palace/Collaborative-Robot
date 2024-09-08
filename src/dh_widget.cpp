@@ -1,4 +1,4 @@
-#include "dh_widget.h"
+#include "include\dh_widget.h"
 
 DH_Widget::DH_Widget(const QString& title, QWidget* parent) : QGroupBox(title, parent) {
     QHBoxLayout* layout = new QHBoxLayout(this);

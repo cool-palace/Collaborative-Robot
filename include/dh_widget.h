@@ -7,7 +7,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QJsonObject>
-#include <dh_matrix.h>
+#include <include\dh_matrix.h>
 
 class DH_Widget : public QGroupBox
 {

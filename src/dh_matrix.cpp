@@ -1,4 +1,4 @@
-#include "dh_matrix.h"
+#include "include\dh_matrix.h"
 
 QDebug& operator<<(QDebug debug, const Point& p) {
     debug << "Point (" << QString::number(p.x_, 'f', 6).toUtf8().constData() << ", "

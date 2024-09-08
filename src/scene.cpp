@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "include\scene.h"
 
 Scene::Scene(QObject* parent) : QGraphicsScene(parent)
     , line_pen(QBrush(Qt::green),3)
