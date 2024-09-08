@@ -42,6 +42,7 @@ void MainWindow::calculate() {
         points.append(result.coordinates());
         qDebug() << QString("Step %1").arg(i) << result;
     }
+    ui->calculate->setEnabled(false);
     int angle = ui->plane->currentIndex() == 0 ? 0 : -90;
     scene->draw_lines(points, angle);
     auto p = points.back();
@@ -97,5 +98,6 @@ void MainWindow::load_settings() {
         current->set_d(joint["d"].toDouble(current->get_d()));
         connect(current, &DH_Widget::value_changed, this, &MainWindow::calculate);
     }
+    ui->calculate->setEnabled(true);
     ui->statusbar->showMessage("Настройки загружены, данные готовы к расчёту.");
 }
