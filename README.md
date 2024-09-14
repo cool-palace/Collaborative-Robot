@@ -2,7 +2,7 @@
 
 Внешний вид окна программы представлен на рисунке 1. 
 
-![image](https://github.com/user-attachments/assets/a59ec935-7c28-4a90-97a7-26f462482fc8)
+![image](https://github.com/user-attachments/assets/7c0d80b2-55ed-4543-94fe-8275aa6d6836)
 
 Рисунок 1 – Рабочее окно программы
 
