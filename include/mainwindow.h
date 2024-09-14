@@ -24,6 +24,7 @@ private:
     Ui::MainWindow *ui;
     Scene* scene;
     QList<DH_Widget*> dh_widgets;
+    QList<Point> points;
     void calculate();
 
     void save_settings() const;

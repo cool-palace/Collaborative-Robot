@@ -63,3 +63,26 @@ QDebug& operator<<(QDebug debug, const DH_Matrix& m) {
     debug.nospace() << "\n)";
     return debug.space();
 }
+
+Matrix::Matrix(int alpha_, int beta_, int gamma_) {
+    double alpha = qDegreesToRadians(static_cast<double>(alpha_));
+    double beta = qDegreesToRadians(static_cast<double>(beta_));
+    double gamma = qDegreesToRadians(static_cast<double>(gamma_));
+    // Angles alpha, beta, gamma represent rotation around X, Y and Z axes respectively
+    matrix[0][0] = qCos(gamma)*qCos(beta) - qSin(gamma)*qSin(alpha)*qSin(beta);
+    matrix[0][1] = -qSin(gamma)*qCos(beta) - qCos(gamma)*qSin(alpha)*qSin(beta);
+    matrix[0][2] = -qCos(alpha)*qSin(beta);
+    matrix[1][0] = qSin(gamma)*qCos(alpha);
+    matrix[1][1] = qCos(gamma)*qCos(alpha);
+    matrix[1][2] = -qSin(alpha);
+    matrix[2][0] = qSin(gamma)*qSin(alpha)*qCos(beta) + qCos(gamma)*qSin(beta);
+    matrix[2][1] = qCos(gamma)*qSin(alpha)*qCos(beta) - qSin(gamma)*qSin(beta);
+    matrix[2][2] = qCos(alpha)*qCos(beta);
+}
+
+Point Matrix::operator* (const Point& p) {
+    qreal x = p.x()*matrix[0][0] + p.y()*matrix[0][1] + p.z()*matrix[0][2];
+    qreal y = p.x()*matrix[1][0] + p.y()*matrix[1][1] + p.z()*matrix[1][2];
+    qreal z = p.x()*matrix[2][0] + p.y()*matrix[2][1] + p.z()*matrix[2][2];
+    return Point(x, y, z);
+}

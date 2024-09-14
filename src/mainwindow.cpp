@@ -19,10 +19,17 @@ MainWindow::MainWindow(QWidget *parent)
         connect(dh_widgets.back(), &DH_Widget::value_changed, this, &MainWindow::calculate);
         ui->verticalLayout->addWidget(dh_widgets.back());
     }
-    connect(ui->calculate, &QPushButton::clicked, this, &MainWindow::calculate);
-    connect(ui->plane, QOverload<int>::of(&QComboBox::currentIndexChanged), [this](int index) {
-        scene->set_yoz(static_cast<bool>(index));
-        calculate();
+    connect(ui->dial_x, QOverload<int>::of(&QSpinBox::valueChanged), [this](int value) {
+        scene->draw_axes(value,ui->dial_y->value(),ui->dial_z->value());
+        scene->draw_lines(points,value,ui->dial_y->value(),ui->dial_z->value());
+    });
+    connect(ui->dial_y, QOverload<int>::of(&QSpinBox::valueChanged), [this](int value) {
+        scene->draw_axes(ui->dial_x->value(),value,ui->dial_z->value());
+        scene->draw_lines(points,ui->dial_x->value(),value,ui->dial_z->value());
+    });
+    connect(ui->dial_z, QOverload<int>::of(&QSpinBox::valueChanged), [this](int value) {
+        scene->draw_axes(ui->dial_x->value(),ui->dial_y->value(),value);
+        scene->draw_lines(points,ui->dial_x->value(),ui->dial_y->value(),value);
     });
 }
 
@@ -32,7 +39,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::calculate() {
-    QList<Point> points;
+    points.clear();
     points.append(Point());
     qDebug() << "Calculating: ";
     DH_Matrix result = dh_widgets.first()->matrix();
@@ -42,9 +49,8 @@ void MainWindow::calculate() {
         points.append(result.coordinates());
         qDebug() << QString("Step %1").arg(i) << result;
     }
-    ui->calculate->setEnabled(false);
-    int angle = ui->plane->currentIndex() == 0 ? 0 : -90;
-    scene->draw_lines(points, angle);
+
+    scene->draw_lines(points,ui->dial_x->value(),ui->dial_y->value(),ui->dial_z->value());
     auto p = points.back();
     ui->statusbar->showMessage(QString("Координаты положения последнего сочленения: "
                                        "x: %1, y: %2, z: %3").arg(p.x()).arg(p.y()).arg(p.z()));
@@ -98,6 +104,5 @@ void MainWindow::load_settings() {
         current->set_d(joint["d"].toDouble(current->get_d()));
         connect(current, &DH_Widget::value_changed, this, &MainWindow::calculate);
     }
-    ui->calculate->setEnabled(true);
-    ui->statusbar->showMessage("Настройки загружены, данные готовы к расчёту.");
+    calculate();
 }

@@ -30,4 +30,13 @@ public:
     friend QDebug& operator<<(QDebug debug, const DH_Matrix& m);
 };
 
+class Matrix {
+private:
+    qreal matrix[3][3];
+
+public:
+    Matrix(int alpha = 0, int beta = 0, int gamma = 0);
+    Point operator* (const Point& p);
+};
+
 #endif // DH_MATRIX_H
