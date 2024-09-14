@@ -79,7 +79,7 @@ void Scene::init() {
 
     auto origin_label = new QGraphicsTextItem("0");
     labels.append(origin_label);
-    origin_label->setPos(z_axis->line().p2() + QPointF(5,-10));
+    origin_label->setPos(z_axis->line().p2() + QPointF(5,-85));
 
     auto x_minus_1_label = new QGraphicsTextItem("-1");
     marks_labels.append(x_minus_1_label);
@@ -126,6 +126,11 @@ void Scene::clear_all() {
     }
 }
 
+QLineF Scene::get_line(double x1, double z1, double x2, double z2) {
+    return QLineF(x1 * scale + width() / 2, height() - 75 - z1 * scale,
+                  x2 * scale + width() / 2, height() - 75 - z2 * scale);
+}
+
 void Scene::draw_lines(const QList<Point> & points, int rotation_angle_x, int rotation_angle_y, int rotation_angle_z) {
     clear_lines();
     Matrix m(rotation_angle_x, rotation_angle_y, rotation_angle_z);
@@ -134,9 +139,7 @@ void Scene::draw_lines(const QList<Point> & points, int rotation_angle_x, int ro
         Point end = m*points[i+1];
         double x1 = start.x(), z1 = start.z();
         double x2 = end.x(), z2 = end.z();
-        QLineF line = QLineF(x1 * scale + width() / 2, height() - z1 * scale,
-                             x2 * scale + width() / 2, height() - z2 * scale);
-        lines.push_back(new QGraphicsLineItem(line));
+        lines.push_back(new QGraphicsLineItem(get_line(x1, z1, x2, z2)));
         lines.back()->setPen(line_pen);
         addItem(lines.back());
     }
@@ -149,10 +152,9 @@ void Scene::draw_axes(int rotation_angle_x, int rotation_angle_y, int rotation_a
         Point end = m*axes_points[i].second;
         double x1 = start.x(), z1 = start.z();
         double x2 = end.x(), z2 = end.z();
-        QLineF line = QLineF(x1 * scale + width() / 2, height() - z1 * scale,
-                             x2 * scale + width() / 2, height() - z2 * scale);
+        QLineF line = get_line(x1, z1, x2, z2);
         axes[i]->setLine(line);
-        labels[i]->setPos(line.p2() + (i == 0 ? x_axis_label_offset : z_axis_label_offset));
+        labels[i]->setPos(line.p2() + (i == 2 ? z_axis_label_offset : x_axis_label_offset));
         if (line.length() > 30) {
             labels[i]->show();
             marks[i]->show();
@@ -170,8 +172,7 @@ void Scene::draw_axes(int rotation_angle_x, int rotation_angle_y, int rotation_a
         Point end = m*marks_points[i].second;
         double x1 = start.x(), z1 = start.z();
         double x2 = end.x(), z2 = end.z();
-        QLineF line = QLineF(x1 * scale + width() / 2, height() - z1 * scale,
-                             x2 * scale + width() / 2, height() - z2 * scale);
+        QLineF line = get_line(x1, z1, x2, z2);
         marks[i]->setLine(line);
         marks_labels[i]->setPos(line.p2() + x_axis_label_offset);
     }

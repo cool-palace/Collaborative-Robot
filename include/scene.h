@@ -24,6 +24,7 @@ public:
 private:
     void clear_lines();
     void clear_all();
+    QLineF get_line(double, double, double, double);
     double scale;
     QPen line_pen;
     QList<QPair<Point, Point>> axes_points;
