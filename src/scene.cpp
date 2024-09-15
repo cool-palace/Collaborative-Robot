@@ -124,6 +124,9 @@ void Scene::clear_all() {
     for (auto label : labels) {
         delete label;
     }
+    for (auto label : marks_labels) {
+        delete label;
+    }
 }
 
 QLineF Scene::get_line(double x1, double z1, double x2, double z2) {

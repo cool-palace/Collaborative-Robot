@@ -19,7 +19,6 @@ public:
     void init();
     void draw_lines(const QList<Point>&, int rotation_angle_x = 0, int rotation_angle_y = 0, int rotation_angle_z = 0);
     void draw_axes(int rotation_angle_x = 0, int rotation_angle_y = 0, int rotation_angle_z = 0);
-    void set_yoz(bool enable) { labels.first()->setPlainText(enable ? "y" : "x"); }
 
 private:
     void clear_lines();
