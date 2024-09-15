@@ -129,7 +129,9 @@ void Scene::clear_all() {
     }
 }
 
-QLineF Scene::get_line(double x1, double z1, double x2, double z2) {
+QLineF Scene::get_line(const Point& start, const Point& end) {
+    double x1 = start.x(), z1 = start.z();
+    double x2 = end.x(), z2 = end.z();
     return QLineF(x1 * scale + width() / 2, height() - 75 - z1 * scale,
                   x2 * scale + width() / 2, height() - 75 - z2 * scale);
 }
@@ -140,9 +142,7 @@ void Scene::draw_lines(const QList<Point> & points, int rotation_angle_x, int ro
     for (int i = 0; i < points.size() - 1; ++i) {
         Point start = m*points[i];
         Point end = m*points[i+1];
-        double x1 = start.x(), z1 = start.z();
-        double x2 = end.x(), z2 = end.z();
-        lines.push_back(new QGraphicsLineItem(get_line(x1, z1, x2, z2)));
+        lines.push_back(new QGraphicsLineItem(get_line(start, end)));
         lines.back()->setPen(line_pen);
         addItem(lines.back());
     }
@@ -153,9 +153,7 @@ void Scene::draw_axes(int rotation_angle_x, int rotation_angle_y, int rotation_a
     for (int i = 0; i < axes_points.size(); ++i) {
         Point start = m*axes_points[i].first;
         Point end = m*axes_points[i].second;
-        double x1 = start.x(), z1 = start.z();
-        double x2 = end.x(), z2 = end.z();
-        QLineF line = get_line(x1, z1, x2, z2);
+        QLineF line = get_line(start, end);
         axes[i]->setLine(line);
         labels[i]->setPos(line.p2() + (i == 2 ? z_axis_label_offset : x_axis_label_offset));
         if (line.length() > 30) {
@@ -173,9 +171,7 @@ void Scene::draw_axes(int rotation_angle_x, int rotation_angle_y, int rotation_a
     for (int i = 0; i < marks_points.size(); ++i) {
         Point start = m*marks_points[i].first;
         Point end = m*marks_points[i].second;
-        double x1 = start.x(), z1 = start.z();
-        double x2 = end.x(), z2 = end.z();
-        QLineF line = get_line(x1, z1, x2, z2);
+        QLineF line = get_line(start, end);
         marks[i]->setLine(line);
         marks_labels[i]->setPos(line.p2() + x_axis_label_offset);
     }

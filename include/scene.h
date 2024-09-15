@@ -23,7 +23,7 @@ public:
 private:
     void clear_lines();
     void clear_all();
-    QLineF get_line(double, double, double, double);
+    QLineF get_line(const Point&, const Point&);
     double scale;
     QPen line_pen;
     QList<QPair<Point, Point>> axes_points;
